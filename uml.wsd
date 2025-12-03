@@ -7,16 +7,36 @@ class Rank {
   elo_max : number
 }
 
+class Role {
+  id : string
+  label : string
+}
+
 class User {
   id : string
   username : string
   email : string
   password : string
   rank_id : string
+  role_id : string
   max_rank : string
   elo : number
+  guild_id : string
+  created_at: date
+  updated_at: date
 }
 
 User -- Rank
+
+class Guild {
+  id : string
+  name : string
+  created_at: date
+  updated_at: date
+}
+
+
+User -- Guild
+
 
 @enduml
