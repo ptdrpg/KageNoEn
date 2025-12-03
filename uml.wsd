@@ -1,0 +1,22 @@
+@startuml kagenoen
+
+class Rank {
+  id : string
+  label : string
+  elo_min : number
+  elo_max : number
+}
+
+class User {
+  id : string
+  username : string
+  email : string
+  password : string
+  rank_id : string
+  max_rank : string
+  elo : number
+}
+
+User -- Rank
+
+@enduml
