@@ -13,7 +13,7 @@ func (r *Repository) GetAllUsers() ([]model.User, error) {
 
 func (r *Repository) GetUserById(id string) (model.User) {
 	var user model.User
-	if err := r.DB.Find(&user, id).Error; err != nil {
+	if err := r.DB.Where("id = ?", id).Find(&user).Error; err != nil {
 		return model.User{}
 	}
 
@@ -37,7 +37,7 @@ func (r *Repository) Updateuser(user model.User) (model.User, error) {
 }
 
 func (r *Repository) DeleteUser(id string) error {
-	if err := r.DB.Delete(&model.User{}, id).Error; err != nil {
+	if err := r.DB.Where("id = ?", id).Delete(&model.User{}).Error; err != nil {
 		return err
 	}
 
