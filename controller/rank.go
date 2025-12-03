@@ -89,6 +89,7 @@ func (c *Controller) DeleteRank(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+	message := "success fully deleted"
 	w.WriteHeader(http.StatusNoContent)
-	json.NewEncoder(w).Encode("success fully deleted")
+	json.NewEncoder(w).Encode(message)
 }

@@ -37,7 +37,7 @@ func (r *Repository) UpdateRank(rank *model.Rank) (error) {
 }
 
 func (r *Repository) DeleteRank(id string) error {
-	if err := r.DB.Delete(&model.Rank{}, id).Error; err != nil {
+	if err := r.DB.Where("id = ?", id).Delete(&model.Rank{}).Error; err != nil {
 		return err
 	}
 
