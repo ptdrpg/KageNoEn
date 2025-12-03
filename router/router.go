@@ -47,6 +47,12 @@ func (r *Router) RegisterRouter() {
 				role.Post("/", r.C.CreateRole)
 				role.Delete("/{id}", r.C.DeleteRole)
 			})
+			v1.Route("/ranks", func(rank chi.Router) {
+				rank.Get("/", r.C.GetAllRanks)
+				rank.Post("/", r.C.CreateRank)
+				rank.Put("/{id}", r.C.UpdateRank)
+				rank.Delete("/{id}", r.C.DeleteRank)
+			})
 		})
 	})
 }
