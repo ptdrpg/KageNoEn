@@ -4,3 +4,11 @@ type Role struct {
 	Id    string `gorm:"id;primarykey" json:"id"`
 	Label string `gorm:"label" json:"label"`
 }
+
+type RoleList struct {
+	Data []Role `json:"data"`
+}
+
+type RoleResponse struct {
+	Data Role `json:"data"`
+}

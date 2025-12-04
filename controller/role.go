@@ -15,9 +15,14 @@ func (c *Controller) GetAllRoles(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	list :=&model.RoleList{
+		Data: roles,
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(roles)
+	json.NewEncoder(w).Encode(list)
 }
 
 func (c *Controller) GetRole(w http.ResponseWriter, r *http.Request) {
@@ -27,9 +32,14 @@ func (c *Controller) GetRole(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusInternalServerError)
 		return
 	}
+
+	data := &model.RoleResponse{
+		Data: role,
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
-	json.NewEncoder(w).Encode(role)
+	json.NewEncoder(w).Encode(data)
 }
 
 func (c *Controller) CreateRole(w http.ResponseWriter, r *http.Request) {
@@ -48,9 +58,13 @@ func (c *Controller) CreateRole(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
+	data := &model.RoleResponse{
+		Data: role,
+	}
+
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusCreated)
-	json.NewEncoder(w).Encode(role)
+	json.NewEncoder(w).Encode(data)
 }
 
 func (c *Controller) DeleteRole(w http.ResponseWriter, r *http.Request) {
