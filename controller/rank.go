@@ -9,14 +9,6 @@ import (
 	"github.com/google/uuid"
 )
 
-type RankList struct {
-	Data []model.Rank `json:"data"`
-}
-
-type RankResponse struct {
-	Data model.Rank `json:"data"`
-}
-
 func (c *Controller) GetAllRanks(w http.ResponseWriter, r *http.Request) {
 	ranks, err := c.R.GetAllRanks()
 	if err != nil {
@@ -24,7 +16,7 @@ func (c *Controller) GetAllRanks(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := RankList{Data: ranks}
+	data := &model.RankList{Data: ranks}
 
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
@@ -47,7 +39,7 @@ func (c *Controller) CreateRank(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := RankResponse{
+	data := &model.RankResponse{
 		Data: rank,
 	}
 
@@ -74,7 +66,7 @@ func (c *Controller) UpdateRank(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := RankResponse{
+	data := &model.RankResponse{
 		Data: rank,
 	}
 
