@@ -13,6 +13,8 @@ type User struct {
 	Role      *Role     `gorm:"foreignKey:RoleId;references:Id" json:"role"`
 	MaxRank   string    `gorm:"max_rank" json:"max_rank"`
 	Elo       int       `gorm:"elo" json:"elo"`
+	IsOnline  bool      `gorm:"is_online" json:"is_online"`
+	LastLogin time.Time `gorm:"last_login" json:"last_login"`
 	CreatedAt time.Time `gorm:"created_at" json:"created_at"`
 	UpdatedAt time.Time `gorm:"updated_at" json:"updated_at"`
 }
