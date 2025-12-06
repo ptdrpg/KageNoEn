@@ -18,3 +18,10 @@ type User struct {
 	CreatedAt time.Time `gorm:"created_at" json:"created_at"`
 	UpdatedAt time.Time `gorm:"updated_at" json:"updated_at"`
 }
+
+type UserInput struct {
+	Id        string    `gorm:"id;primarykey" json:"id"`
+	Username  string    `gorm:"username;unique" json:"username"`
+	Email     string    `gorm:"email;unique" json:"email"`
+	Password  string    `gorm:"password" json:"password"`
+}
