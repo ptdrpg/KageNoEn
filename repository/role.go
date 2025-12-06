@@ -18,6 +18,14 @@ func (r *Repository) GetRole(id string) (model.Role, error) {
 	return role, nil
 }
 
+func (r *Repository) GetRoleByLabel(label string) (model.Role, error) {
+	var role model.Role
+	if err := r.DB.Where("label = ?", label).Find(&role).Error; err != nil {
+		return model.Role{}, err
+	}
+	return role, nil
+}
+
 func (r *Repository) CreateRole(role model.Role) error {
 	if err := r.DB.Create(&role).Error; err != nil {
 		return err

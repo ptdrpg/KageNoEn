@@ -20,6 +20,15 @@ func (r *Repository) GetUserStatusById(id string) (model.UserStatus, error) {
 	return status, nil
 }
 
+func (r *Repository) GetUserStatusByLabel(label string) (model.UserStatus, error) {
+	var status model.UserStatus
+	if err := r.DB.Where("label = ?", label).Find(&status).Error; err != nil {
+		return model.UserStatus{}, err
+	}
+
+	return status, nil
+}
+
 func (r *Repository) CreateUserStatus(status model.UserStatus) error {
 	if err := r.DB.Create(&status).Error; err != nil {
 		return err

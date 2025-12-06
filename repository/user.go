@@ -4,20 +4,20 @@ import "KageNoEn/model"
 
 func (r *Repository) GetAllUsers() ([]model.User, error) {
 	var users []model.User
-	if err := r.DB.Preload("Rank").Preload("Role").Find(&users).Error; err != nil {
+	if err := r.DB.Preload("Rank").Preload("Role").Preload("Status").Find(&users).Error; err != nil {
 		return []model.User{}, err
 	}
 
 	return users, nil
 }
 
-func (r *Repository) GetUserById(id string) model.User {
+func (r *Repository) GetUserById(id string) (model.User, error) {
 	var user model.User
-	if err := r.DB.Where("id = ?", id).Preload("Rank").Preload("Role").Find(&user).Error; err != nil {
-		return model.User{}
+	if err := r.DB.Where("id = ?", id).Preload("Rank").Preload("Role").Preload("Status").Find(&user).Error; err != nil {
+		return model.User{}, err
 	}
 
-	return user
+	return user, nil
 }
 
 func (r *Repository) CreateUser(user model.User) error {

@@ -20,6 +20,15 @@ func (r *Repository) GetRankById(id string) (model.Rank, error) {
 	return rank, nil
 }
 
+func (r *Repository) GetbyElo(elo int) (model.Rank, error) {
+	var rank model.Rank
+	if err := r.DB.Where("elo = elo_min", elo).Find(&rank).Error; err != nil {
+		return model.Rank{}, err
+	}
+
+	return rank, nil
+}
+
 func (r *Repository) CreateRank(rank model.Rank) error {
 	if err := r.DB.Create(&rank).Error; err != nil {
 		return err

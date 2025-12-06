@@ -3,25 +3,34 @@ package model
 import "time"
 
 type User struct {
-	Id        string    `gorm:"id;primarykey" json:"id"`
-	Username  string    `gorm:"username;unique" json:"username"`
-	Email     string    `gorm:"email;unique" json:"email"`
-	Password  string    `gorm:"password" json:"password"`
-	RankId    string    `gorm:"rank_id" json:"rank_id"`
-	Rank      *Rank     `gorm:"foreignKey:RankId;references:Id" json:"rank"`
-	RoleId    string    `gorm:"role_id" json:"role_id"`
-	Role      *Role     `gorm:"foreignKey:RoleId;references:Id" json:"role"`
-	MaxRank   string    `gorm:"max_rank" json:"max_rank"`
-	Elo       int       `gorm:"elo" json:"elo"`
-	IsOnline  bool      `gorm:"is_online" json:"is_online"`
-	LastLogin time.Time `gorm:"last_login" json:"last_login"`
-	CreatedAt time.Time `gorm:"created_at" json:"created_at"`
-	UpdatedAt time.Time `gorm:"updated_at" json:"updated_at"`
+	Id        string      `gorm:"id;primarykey" json:"id"`
+	Username  string      `gorm:"username;unique" json:"username"`
+	Email     string      `gorm:"email;unique" json:"email"`
+	Password  string      `gorm:"password" json:"password"`
+	RankId    string      `gorm:"rank_id" json:"rank_id"`
+	Rank      *Rank       `gorm:"foreignKey:RankId;references:Id" json:"rank"`
+	StatusId  string      `gorm:"status_id" json:"status_id"`
+	Status    *UserStatus `gorm:"foreignKey:StatusId;references:Id" json:"status"`
+	RoleId    string      `gorm:"role_id;" json:"role_id"`
+	Role      *Role       `gorm:"foreignKey:RoleId;references:Id" json:"role"`
+	MaxRank   string      `gorm:"max_rank" json:"max_rank"`
+	Elo       int         `gorm:"elo;default:0" json:"elo"`
+	IsOnline  bool        `gorm:"is_online;default:false" json:"is_online"`
+	LastLogin time.Time   `gorm:"last_login;default:null" json:"last_login"`
+	CreatedAt time.Time   `gorm:"created_at" json:"created_at"`
+	UpdatedAt time.Time   `gorm:"updated_at" json:"updated_at"`
 }
 
 type UserInput struct {
-	Id        string    `gorm:"id;primarykey" json:"id"`
-	Username  string    `gorm:"username;unique" json:"username"`
-	Email     string    `gorm:"email;unique" json:"email"`
-	Password  string    `gorm:"password" json:"password"`
+	Username string `gorm:"username;unique" json:"username"`
+	Email    string `gorm:"email;unique" json:"email"`
+	Password string `gorm:"password" json:"password"`
+}
+
+type UserList struct {
+	Data []User `json:"data"`
+}
+
+type UserResponse struct {
+	Data User `json:"data"`
 }
