@@ -26,10 +26,16 @@ func (c *Controller) SignUp(w http.ResponseWriter, r *http.Request) {
 	role, _ := c.R.GetRoleByLabel("player")
 	status, _ := c.R.GetUserStatusByLabel("active")
 
+	pssw, err := lib.HashPass(input.Password)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
 	user := &model.User{
 		Id:        res.Id,
 		Username:  input.Username,
-		Password:  input.Password,
+		Password:  pssw,
 		Email:     input.Email,
 		RankId:    eloRank.Id,
 		RoleId:    role.Id,
@@ -43,8 +49,15 @@ func (c *Controller) SignUp(w http.ResponseWriter, r *http.Request) {
 		return
 	}
 
-	data := &model.UserResponse{
+	token, err := lib.GenerateToken(res.Id, role.Label, input.Username)
+	if err != nil {
+		http.Error(w, err.Error(), http.StatusInternalServerError)
+		return
+	}
+
+	data := &model.RegisterResponse{
 		Data: *user,
+		Token: token,
 	}
 
 	w.Header().Set("Content-Type", "application/json")
