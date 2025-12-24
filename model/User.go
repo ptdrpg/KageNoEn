@@ -22,9 +22,9 @@ type User struct {
 }
 
 type UserInput struct {
-	Username string `gorm:"username;unique" json:"username"`
-	Email    string `gorm:"email;unique" json:"email"`
-	Password string `gorm:"password" json:"password"`
+	Username string `json:"username"`
+	Email    string `json:"email"`
+	Password string `json:"password"`
 }
 
 type UserLoginInput struct {

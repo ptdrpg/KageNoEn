@@ -22,7 +22,7 @@ func (r *Repository) GetRankById(id string) (model.Rank, error) {
 
 func (r *Repository) GetbyElo(elo int) (model.Rank, error) {
 	var rank model.Rank
-	if err := r.DB.Where("elo = elo_min", elo).Find(&rank).Error; err != nil {
+	if err := r.DB.Where("elo_min = ?", elo).Find(&rank).Error; err != nil {
 		return model.Rank{}, err
 	}
 

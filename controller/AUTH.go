@@ -4,6 +4,7 @@ import (
 	"KageNoEn/lib"
 	"KageNoEn/model"
 	"encoding/json"
+	"fmt"
 	"net/http"
 	"time"
 
@@ -17,6 +18,8 @@ func (c *Controller) SignUp(w http.ResponseWriter, r *http.Request) {
 		http.Error(w, err.Error(), http.StatusBadRequest)
 		return
 	}
+
+	fmt.Println(input.Password)
 
 	res, genErr := lib.GenerateId(input.Username)
 	if genErr != nil {
@@ -189,4 +192,22 @@ func (c *Controller) ChangePass(w http.ResponseWriter, r *http.Request) {
 	w.Header().Set("Content-Type", "application/json")
 	w.WriteHeader(http.StatusOK)
 	json.NewEncoder(w).Encode(data)
+}
+
+func (c *Controller) Logout(w http.ResponseWriter, r *http.Request) {
+	http.SetCookie(w, &http.Cookie{
+    Name:     "access_token",
+    Value:    "",
+    Path:     "/",
+    HttpOnly: true,
+    Secure:   false,
+    Expires:  time.Unix(0, 0),
+    MaxAge:   -1,
+    SameSite: http.SameSiteLaxMode,
+  })
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(map[string]string{
+		"message": "Logged out successfully",
+	})
 }

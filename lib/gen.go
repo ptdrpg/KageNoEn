@@ -1,10 +1,10 @@
 package lib
 
 import (
+	"crypto/sha256"
+	"encoding/hex"
 	"fmt"
 	"time"
-
-	"golang.org/x/crypto/bcrypt"
 )
 
 type IdModel struct {
@@ -13,14 +13,10 @@ type IdModel struct {
 
 func GenerateId(username string) (IdModel, error) {
 	data := fmt.Sprintf(username, time.Now().String())
-	
-	hash, err := bcrypt.GenerateFromPassword([]byte(data), bcrypt.DefaultCost)
-	if err != nil {
-		return IdModel{}, err
-	}
 
+	hash := sha256.Sum256([]byte(data))
 	res := IdModel{
-		Id: string(hash),
+		Id: hex.EncodeToString(hash[:]),
 	}
 
 	return res, nil
