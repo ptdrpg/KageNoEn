@@ -32,10 +32,10 @@ func NewRouter(c *controller.Controller) *Router {
 
 func (r *Router) RegisterRouter() {
 	r.R.Group(func(public chi.Router) {
-		public.Route("/api/v1/signin", func(login chi.Router) {
+		public.Route("/api/v1/login", func(login chi.Router) {
 			login.Post("/", r.C.SignIn)
 		})
-		public.Route("/api/v1/signup", func(login chi.Router) {
+		public.Route("/api/v1/register", func(login chi.Router) {
 			login.Post("/", r.C.SignUp)
 		})
 	})
