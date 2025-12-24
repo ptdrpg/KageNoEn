@@ -36,6 +36,7 @@ func Connexion() {
 		&model.Rank{},
 		&model.UserStatus{},
 		&model.User{},
+		&model.FriendList{},
 	)
 
 	DB = db
