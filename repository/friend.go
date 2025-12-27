@@ -5,7 +5,7 @@ import "KageNoEn/model"
 func (r *Repository) GetAllFriends(userId string) ([]model.FriendWithStatus, error) {
 	var friends []model.FriendWithStatus
 	if err := r.DB.Table("users u").
-		Select("u.username, u.is_online, f.status").
+		Select("u.id, u.username, u.is_online, f.status").
 		Joins("JOIN friend_lists f ON (u.id = f.sender OR u.id = f.receiver)").
 		Where("(f.sender = ? OR f.receiver = ?) AND f.status = ?", userId, userId, "accepted").
 		Scan(&friends).Error; err != nil {

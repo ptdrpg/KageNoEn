@@ -12,6 +12,7 @@ type FriendList struct {
 }
 
 type FriendWithStatus struct {
+	Id       string `json:"id"`
 	Username string `json:"username"`
 	Status   string `json:"status"`
 	IsOnline bool   `json:"is_online"`
