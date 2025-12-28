@@ -70,7 +70,7 @@ func (r *Router) RegisterRouter() {
 			})
 			v1.Route("/friends", func(friend chi.Router) {
 				friend.Get("/{id}", r.C.GetAllFriends)
-				friend.Get("/confirm/{id}", r.C.GetRequest)
+				friend.Get("/invit/{id}", r.C.GetRequest)
 				friend.Post("/", r.C.AddFriend)
 				friend.Put("/confirm/{id}", r.C.ConfirmFriend)
 			})
