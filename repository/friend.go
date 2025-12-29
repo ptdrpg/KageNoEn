@@ -26,6 +26,14 @@ func (r *Repository) GetFriendRequest(receiverId string) ([]model.FriendRequestT
 	return requests, nil
 }
 
+func (r *Repository) GetFiltredSearch(username string) ([]model.FriendRequestType, error) {
+	var users []model.FriendRequestType
+	if err := r.DB.Table("users").Select("id, username").Where("username LIKE ?", "%"+username+"%").Scan(&users).Error; err != nil {
+		return nil, err
+	}
+	return users, nil
+}
+
 func (r *Repository) AddFriend(data model.FriendList) error {
 	if err := r.DB.Create(&data).Error; err != nil {
 		return err

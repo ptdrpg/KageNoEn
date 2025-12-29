@@ -72,6 +72,7 @@ func (r *Router) RegisterRouter() {
 				friend.Get("/{id}", r.C.GetAllFriends)
 				friend.Get("/invit/{id}", r.C.GetRequest)
 				friend.Post("/", r.C.AddFriend)
+				friend.Post("/search", r.C.GetFiltredSearch)
 				friend.Put("/confirm/{id}", r.C.ConfirmFriend)
 			})
 		})

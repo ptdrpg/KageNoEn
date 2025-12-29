@@ -26,6 +26,32 @@ func (c *Controller) GetAllFriends(w http.ResponseWriter, r *http.Request) {
 	json.NewEncoder(w).Encode(data)
 }
 
+type SearchInput struct {
+	Username string `json:"username"`
+}
+
+func (c *Controller) GetFiltredSearch(w http.ResponseWriter, r *http.Request) {
+	var input SearchInput
+	if err := json.NewDecoder(r.Body).Decode(&input); err != nil {
+		w.WriteHeader(http.StatusBadRequest)
+		return
+	}
+
+	users, err := c.R.GetFiltredSearch(input.Username)
+	if err != nil {
+		w.WriteHeader(http.StatusInternalServerError)
+		return
+	}
+
+	data := model.FriendRequestList{
+		Data: users,
+	}
+
+	w.Header().Set("Content-Type", "application/json")
+	w.WriteHeader(http.StatusOK)
+	json.NewEncoder(w).Encode(data)
+}
+
 func (c *Controller) GetRequest(w http.ResponseWriter, r *http.Request) {
 	userId := chi.URLParam(r, "id")
 	requests, err := c.R.GetFriendRequest(userId)
